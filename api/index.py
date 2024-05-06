@@ -25,7 +25,7 @@ def about():
         "from": fake.email(),
         "subject": fake.sentence(),
         "body": fake.text(),
-        "received": lambda: datetime.now().timestamp()
+        "received": datetime.now().timestamp()
     }
     
     messages.append(new_message)
