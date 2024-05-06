@@ -19,8 +19,8 @@ def about():
     current_datetime = datetime.now()
     formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
 
-    if len(messages) >= 100:
-        messages.pop(0)  # Remove the oldest message if the list is larger than 10
+    if len(messages) >= 10:
+        messages.pop(0)
 
     new_message = {
         "id": fake.name(),
