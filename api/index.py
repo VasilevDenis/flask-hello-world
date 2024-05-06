@@ -4,7 +4,6 @@ import time
 
 fake = Faker()
 app = Flask(__name__)
-id = 0
 
 @app.route('/')
 def home():
@@ -12,24 +11,20 @@ def home():
 
 @app.route('/messages/unread')
 def about():
-    global id
-    id += 1
-    message1 = {
-        "id": fake.name(),
-        "from": fake.email(),
-        "subject": fake.sentence(),
-        "body": fake.text(),
-        "received": time.time()
-    }
-    message2 = {
-        "id": str(id),
-        "from": fake.email(),
-        "subject": fake.sentence(),
-        "body": fake.text(),
-        "received": time.time()
-    }
+    
 
-    messages = [message1, message2]
+    # Using list comprehension to create a list of message dictionaries
+    messages = [
+        {
+            "id": fake.name(),
+            "from": fake.email(),
+            "subject": fake.sentence(),
+            "body": fake.text(),
+            "received": time.time()
+        }
+        for _ in range(5)  # Number of messages to generate (2 in this case)
+    ]
+
     response = {
         "status": "ok",
         "timestamp": time.time(),
