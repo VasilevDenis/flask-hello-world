@@ -16,7 +16,8 @@ def home():
 @app.route('/messages/unread')
 def about():
     global messages
-    now = datatime.date.today() + datetime.now()
+    current_datetime = datetime.now()
+    formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
 
     if len(messages) >= 100:
         messages.pop(0)  # Remove the oldest message if the list is larger than 10
@@ -26,14 +27,14 @@ def about():
         "from": fake.email(),
         "subject": fake.sentence(),
         "body": fake.text(),
-        "received": now
+        "received": formatted_datetime
     }
     
     messages.append(new_message)
 
     response = {
         "status": "ok",
-        "timestamp": now,
+        "timestamp": formatted_datetime,
         "messages": messages
     }
 
