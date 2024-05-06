@@ -1,9 +1,11 @@
 from flask import Flask, jsonify
 from faker import Faker
 import time
+from flask_cors import CORS
 
 fake = Faker()
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/')
 def home():
@@ -11,9 +13,6 @@ def home():
 
 @app.route('/messages/unread')
 def about():
-    
-
-    # Using list comprehension to create a list of message dictionaries
     messages = [
         {
             "id": fake.name(),
@@ -22,7 +21,7 @@ def about():
             "body": fake.text(),
             "received": time.time()
         }
-        for _ in range(5)  # Number of messages to generate (2 in this case)
+        for _ in range(5)
     ]
 
     response = {
@@ -32,3 +31,6 @@ def about():
     }
 
     return jsonify(response)
+
+if __name__ == '__main__':
+    app.run()
