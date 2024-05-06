@@ -7,22 +7,28 @@ fake = Faker()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+messages = []
+
 @app.route('/')
 def home():
     return 'Hello!'
 
 @app.route('/messages/unread')
 def about():
-    messages = [
-        {
-            "id": fake.name(),
-            "from": fake.email(),
-            "subject": fake.sentence(),
-            "body": fake.text(),
-            "received": time.time()
-        }
-        for _ in range(5)
-    ]
+    global messages
+
+    if len(messages) >= 10:
+        messages.pop(0)  # Remove the oldest message if the list is larger than 10
+
+    new_message = {
+        "id": fake.name(),
+        "from": fake.email(),
+        "subject": fake.sentence(),
+        "body": fake.text(),
+        "received": time.time()
+    }
+    
+    messages.append(new_message)
 
     response = {
         "status": "ok",
