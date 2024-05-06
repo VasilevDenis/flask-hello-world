@@ -1,7 +1,6 @@
-from flask import Flask
+from flask import Flask, jsonify
 from faker import Faker
 import time
-
 
 fake = Faker()
 app = Flask(__name__)
@@ -13,25 +12,28 @@ def home():
 
 @app.route('/messages/unread')
 def about():
-    id +=1
-    return f'''{
-              "status": "ok",
-              "timestamp": {time.time()},
-              "messages": [
-                {
-                  "id": {fake.name()},
-                  "from": {fake.email()},
-                  "subject": {fake.sentence()},
-                  "body": {fake.text()},
-                  "received": {time.time()}
-                }
-                {
-                  "id": {str(id)},
-                  "from": {fake.email()},
-                  "subject": {fake.sentence()},
-                  "body": {fake.text()},
-                  "received": {time.time()}
-                },
-                ...
-              ]
-            }'''
+    global id
+    id += 1
+    message1 = {
+        "id": fake.name(),
+        "from": fake.email(),
+        "subject": fake.sentence(),
+        "body": fake.text(),
+        "received": time.time()
+    }
+    message2 = {
+        "id": str(id),
+        "from": fake.email(),
+        "subject": fake.sentence(),
+        "body": fake.text(),
+        "received": time.time()
+    }
+
+    messages = [message1, message2]
+    response = {
+        "status": "ok",
+        "timestamp": time.time(),
+        "messages": messages
+    }
+
+    return jsonify(response)
