@@ -34,7 +34,7 @@ def about():
     response = {
         "status": "ok",
         "timestamp": time,
-        "messages": messages.reverse()
+        "messages": messages
     }
 
     return jsonify(response)
