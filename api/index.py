@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from faker import Faker
-import time
+from datetime import datetime
 from flask_cors import CORS
 
 fake = Faker()
@@ -25,14 +25,14 @@ def about():
         "from": fake.email(),
         "subject": fake.sentence(),
         "body": fake.text(),
-        "received": time.time()
+        "received": datetime.now().timestamp()
     }
     
     messages.append(new_message)
 
     response = {
         "status": "ok",
-        "timestamp": time.time(),
+        "timestamp": datetime.now().timestamp(),
         "messages": messages
     }
 
