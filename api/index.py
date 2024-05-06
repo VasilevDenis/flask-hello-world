@@ -16,7 +16,7 @@ def home():
 @app.route('/messages/unread')
 def about():
     global messages
-    now = datetime.now()
+    now = datatime.date.today() + datetime.now()
 
     if len(messages) >= 100:
         messages.pop(0)  # Remove the oldest message if the list is larger than 10
