@@ -9,12 +9,11 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 messages = []
-is_running = True
 
 def add_message():
     global messages, is_running
 
-    while is_running:
+    while True:
         if len(messages) >= 10:
             messages.pop(0)  # Remove the oldest message if the list is larger than 10
 
