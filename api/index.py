@@ -34,7 +34,7 @@ def home():
     return 'Hello!'
 
 @app.route('/messages/unread')
-def about():
+def unread():
     response = {
         "status": "ok",
         "timestamp": time.time(),
