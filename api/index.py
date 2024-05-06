@@ -2,7 +2,6 @@ from flask import Flask, jsonify
 from faker import Faker
 from datetime import datetime
 from flask_cors import CORS
-import time
 
 fake = Faker()
 app = Flask(__name__)
@@ -36,8 +35,6 @@ def about():
         "timestamp": datetime.now().timestamp(),
         "messages": messages
     }
-
-    time.sleep(1)  # Add a 1-second delay before the next message is created
 
     return jsonify(response)
 
