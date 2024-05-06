@@ -16,7 +16,7 @@ def about():
     id +=1
     return f'''{
               "status": "ok",
-              "timestamp": {timestamp = time.time()},
+              "timestamp": {time.time()},
               "messages": [
                 {
                   "id": {fake.name()},
