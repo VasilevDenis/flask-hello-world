@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from faker import Faker
-from datetime import datetime, date
+from datetime import datetime
 from flask_cors import CORS
 
 fake = Faker()
@@ -16,7 +16,7 @@ def home():
 @app.route('/messages/unread')
 def about():
     global messages
-    current_datetime = str(date.today()) + ' ' + str(datetime.now())
+    current_datetime = datetime.now()
 
     if len(messages) >= 100:
         messages.pop(0)
