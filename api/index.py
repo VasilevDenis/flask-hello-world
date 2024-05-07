@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from faker import Faker
-from datetime import datetime
+from datetime import datetime, date
 from flask_cors import CORS
 
 fake = Faker()
@@ -16,10 +16,9 @@ def home():
 @app.route('/messages/unread')
 def about():
     global messages
-    current_datetime = datetime.now()
-    formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    current_datetime = str(date.today()) + ' ' + str(datetime.now())
 
-    if len(messages) >= 10:
+    if len(messages) >= 100:
         messages.pop(0)
 
     new_message = {
@@ -27,14 +26,14 @@ def about():
         "from": fake.email(),
         "subject": fake.sentence(),
         "body": fake.text(),
-        "received": formatted_datetime
+        "received": current_datetime
     }
     
     messages.append(new_message)
 
     response = {
         "status": "ok",
-        "timestamp": formatted_datetime,
+        "timestamp": current_datetime,
         "messages": messages
     }
 
